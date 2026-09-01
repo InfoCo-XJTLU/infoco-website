@@ -136,6 +136,15 @@ const Preloader = /** @constructor */ function () { // eslint-disable-line no-un
 		}), { headers: response.headers });
 	}
 
+	function decompressGzip(buffer) {
+		if (typeof DecompressionStream === 'undefined') {
+			return Promise.reject(new Error('DecompressionStream is not supported by this browser'));
+		}
+		const ds = new DecompressionStream('gzip');
+		const stream = new Blob([buffer]).stream().pipeThrough(ds);
+		return new Response(stream).arrayBuffer();
+	}
+
 	function loadFetch(file, tracker, fileSize, raw) {
 		tracker[file] = {
 			total: fileSize || 0,
@@ -147,6 +156,18 @@ const Preloader = /** @constructor */ function () { // eslint-disable-line no-un
 				return Promise.reject(new Error(`Failed loading file '${file}'`));
 			}
 			const tr = getTrackedResponse(response, tracker[file]);
+			// [Plan B] The engine wasm is stored as `Gems.wasm.gz` (gzip) to stay under
+			// the Cloudflare Workers 25 MiB per-asset limit. Decompress it here so the
+			// rest of the load pipeline (which expects a valid wasm Response) is unchanged.
+			if (file.endsWith('.wasm.gz')) {
+				return tr.arrayBuffer().then(function (buf) {
+					return decompressGzip(buf);
+				}).then(function (wasmBuffer) {
+					return new Response(new Uint8Array(wasmBuffer), {
+						headers: { 'Content-Type': 'application/wasm' },
+					});
+				});
+			}
 			if (raw) {
 				return Promise.resolve(tr);
 			}
@@ -666,7 +687,7 @@ const Engine = (function () {
 	Engine.load = function (basePath, size) {
 		if (loadPromise == null) {
 			loadPath = basePath;
-			loadPromise = preloader.loadPromise(`${loadPath}.wasm`, size, true);
+			loadPromise = preloader.loadPromise(`${loadPath}.wasm.gz`, size, true);
 			requestAnimationFrame(preloader.animateProgress);
 		}
 		return loadPromise;
@@ -706,7 +727,7 @@ const Engine = (function () {
 						initPromise = Promise.reject(new Error('A base path must be provided when calling `init` and the engine is not loaded.'));
 						return initPromise;
 					}
-					Engine.load(basePath, this.config.fileSizes[`${basePath}.wasm`]);
+					Engine.load(basePath, this.config.fileSizes[`${basePath}.wasm.gz`]);
 				}
 				const me = this;
 				function doInit(promise) {
