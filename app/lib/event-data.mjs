@@ -49,7 +49,7 @@ export const upcomingEvents = [
     status: 'upcoming',
     summary: '完成玩法设计、程序实现与可操作原型。',
     tone: 'acid',
-    href: '/events#game-development-starter',
+    href: '/events/game-development-starter',
   },
   {
     slug: 'club-culture-festival',
