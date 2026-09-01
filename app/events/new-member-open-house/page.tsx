@@ -29,7 +29,7 @@ export default function NewMemberOpenHousePage() {
           <p>到 8 号展位了解 InfoCo，并参加“快问快答”挑战。</p>
           <div className="detail-actions">
             <a className="btn btn-primary" href="/games/quick-quiz">进入快问快答 →</a>
-            <a className="btn btn-ghost" href="/recruitment/academic-clubs-map.png" target="_blank" rel="noreferrer">查看活动地图 ↗</a>
+            <a className="btn btn-ghost" href="/recruitment/academic-clubs-map.png" target="_blank" rel="noreferrer">查看活动地图 ↗︎</a>
             <ShareButton />
           </div>
         </section>

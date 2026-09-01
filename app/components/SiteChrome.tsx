@@ -37,14 +37,14 @@ export function SiteHeader() {
           return <a href={href} key={href} className={active ? 'active' : ''} aria-current={active ? 'page' : undefined}><span>{cn}</span><small>{en}</small></a>;
         })}
       </nav>
-      <a className="header-join" href="/join">JOIN <span aria-hidden="true">↗</span></a>
+      <a className="header-join" href="/join">JOIN <span aria-hidden="true">↗︎</span></a>
       <button className={`menu-toggle ${open ? 'open' : ''}`} onClick={() => setOpenPath(open ? null : pathname)} aria-expanded={open} aria-controls="mobile-nav" aria-label={open ? '关闭菜单' : '打开菜单'}>
         <span /><span />
       </button>
       <nav id="mobile-nav" className={`mobile-nav ${open ? 'open' : ''}`} aria-label="移动端主导航">
         {navItems.map(([cn, en, href], index) => {
           const active = href === '/' ? pathname === '/' : pathname.startsWith(href);
-          return <a href={href} key={href} className={active ? 'active' : ''} aria-current={active ? 'page' : undefined}><b>0{index + 1}</b><span>{cn}<small>{en}</small></span><i>↗</i></a>;
+          return <a href={href} key={href} className={active ? 'active' : ''} aria-current={active ? 'page' : undefined}><b>0{index + 1}</b><span>{cn}<small>{en}</small></span><i>↗︎</i></a>;
         })}
       </nav>
     </header>
@@ -80,10 +80,13 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
 export function PageIntro({ index, label, title, copy, accent = 'acid' }: { index: string; label: string; title: string; copy: string; accent?: 'acid' | 'blue' | 'orange' }) {
   return (
-    <section className={`page-intro ${accent}`}>
+    <section className={`page-intro ${accent} decor-${index}`}>
       <div className="page-intro-title">
         <div className="page-intro-meta"><span>{index}</span><span>{label}</span></div>
         <h1>{title}</h1>
+        <i className="page-intro-block" aria-hidden="true" />
+        <i className="page-intro-tile" aria-hidden="true" />
+        <i className="page-intro-dot" aria-hidden="true" />
       </div>
       <p>{copy}</p>
       <div className="page-intro-cross" aria-hidden="true">+</div>

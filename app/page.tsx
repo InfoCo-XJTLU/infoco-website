@@ -9,6 +9,18 @@ const tracks = [
   ['04', '校园科技', '让技术走出屏幕，成为校园文化的一部分。', 'LIVE'],
 ];
 
+const bulletinItems = [
+  ['NOW RECRUITING', '面向 2026 新生与转专业同学', 'green'],
+  ['BOOTH 08', '南校区 · 学术类社团区', 'blue'],
+  ['QUICK QUIZ', '现场扫码，答题挑战开放中', 'orange'],
+];
+
+const activityLogs = [
+  ['WORKSHOP / 01', '<CODE\\nTOGETHER>', '社课打底', '从基础概念到小型练习，把问题拆开再写出来。'],
+  ['HACK NIGHT / 02', 'MAKE\\nIT\\nREAL', '共创夜', '把想法推进到可运行版本，现场找队友、拆任务。'],
+  ['SHOW & TELL / 03', 'SHIP IT!', '作品分享', '展示阶段成果，也记录踩坑、复盘和下一步。'],
+];
+
 const openHouse = events.find((event) => event.slug === 'new-member-open-house')!;
 
 export default function Home() {
@@ -16,27 +28,26 @@ export default function Home() {
     <Shell>
       <main id="top">
         <section className="hero-shell">
-          <div className="grid-wash" aria-hidden="true" />
           <div className="hero-copy">
             <div className="eyebrow"><span className="live-dot" /> COMPUTER SCIENCE SOCIETY · 2026</div>
             <h1 className="hero-title"><span>CODE</span><span>THE <em>CULTURE.</em></span></h1>
             <p className="hero-lead">用代码，编译想法。</p>
             <p className="hero-body">从第一行代码，到第一个作品。</p>
-            <div className="hero-actions"><a className="btn btn-primary" href="/join">加入 InfoCo <span>→</span></a><a className="btn btn-ghost" href="/projects">查看项目 <span>↗</span></a></div>
+            <div className="hero-actions"><a className="btn btn-primary" href="/join">加入 InfoCo <span>→</span></a><a className="btn btn-ghost" href="/projects">查看项目 <span>↗︎</span></a></div>
           </div>
-          <div className="hero-console" aria-label="InfoCo 系统状态">
-            <div className="console-top"><span>INFOCO://MISSION_CONTROL</span><span className="console-status">● ONLINE</span></div>
+          <div className="hero-console" aria-label="InfoCo 社团概况">
+            <div className="console-top"><span>CLUB NOTICEBOARD</span><span className="console-status">● LIVE ON CAMPUS</span></div>
             <div className="console-body">
               <div className="hero-emblem" aria-hidden="true"><span /></div>
-              <div className="console-copy"><span className="command">$ infoco init</span><strong>BUILD TOGETHER.</strong><p>LEARN · MAKE · SHIP · SHARE</p></div>
-              <div className="console-meter"><span>CREATIVE ENERGY</span><div><i /></div><b>94%</b></div>
+              <div className="console-copy"><span className="command">OUR MISSION</span><strong>BUILD TOGETHER.</strong><p>LEARN · MAKE · SHIP · SHARE</p></div>
+              <div className="bulletin-list">
+                {bulletinItems.map(([label, copy, tone]) => <div className={`bulletin-item ${tone}`} key={label}><span>{label}</span><strong>{copy}</strong></div>)}
+              </div>
             </div>
-            <div className="console-foot"><span>04 CORE TRACKS</span><span>05 DIVISIONS</span><span>01 GAME ONLINE</span></div>
+            <div className="console-foot"><span>04 CORE TRACKS</span><span>05 DIVISIONS</span><span>BOOTH 08</span></div>
           </div>
           <a className="signal-card" href="#recruitment"><span className="signal-label">NEXT EVENT / 下一场活动</span><span className="signal-title">9 月 2 日百团大战</span><span className="signal-desc">09:00–20:00 · 学术类社团区 8 号展位</span><span className="signal-arrow">↓</span></a>
         </section>
-
-        <div className="ticker" aria-label="InfoCo 关键词"><div>LEARN_01&nbsp;&nbsp;✦&nbsp;&nbsp;MAKE_02&nbsp;&nbsp;✦&nbsp;&nbsp;SHIP_03&nbsp;&nbsp;✦&nbsp;&nbsp;SHARE_04&nbsp;&nbsp;✦&nbsp;&nbsp;CODE THE CULTURE&nbsp;&nbsp;✦&nbsp;&nbsp;LEARN_01&nbsp;&nbsp;✦&nbsp;&nbsp;MAKE_02&nbsp;&nbsp;✦&nbsp;&nbsp;SHIP_03&nbsp;&nbsp;✦&nbsp;&nbsp;SHARE_04</div></div>
 
         <section className="home-statement section-pad">
           <div className="section-index">01 / ABOUT THE CLUB</div>
@@ -45,8 +56,8 @@ export default function Home() {
         </section>
 
         <section className="home-event section-pad" id="recruitment">
-          <div className="section-index light">02 / CURRENT SIGNAL</div>
-          <div className="event-feature-copy"><span className="status-pill">● SCHEDULED · 9.2 百团大战</span><h2>{openHouse.title}</h2><p>了解社团方向、在研项目与加入方式；现场开放“快问快答”。</p><div className="feature-meta"><div><span>DATE / TIME</span><strong>2026.09.02 · 09:00–20:00</strong></div><div><span>LOCATION</span><strong>西交利物浦大学南校区<br />学术类社团区 8 号展位</strong></div><div><span>ENTRY</span><strong>现场免费参与</strong></div></div><div className="event-actions"><a className="btn btn-dark" href={openHouse.href}>查看活动 <span>→</span></a><a className="map-link" href="/games/quick-quiz">进入快问快答 ↗</a><a className="map-link" href="/recruitment/academic-clubs-map.png" target="_blank" rel="noreferrer">查看地图 ↗</a></div></div>
+          <div className="section-index light">02 / UPCOMING EVENT</div>
+          <div className="event-feature-copy"><span className="status-pill">● SCHEDULED · 9.2 百团大战</span><h2>{openHouse.title}</h2><p>了解社团方向、在研项目与加入方式；现场开放“快问快答”。</p><div className="feature-meta"><div><span>DATE / TIME</span><strong>2026.09.02 · 09:00–20:00</strong></div><div><span>LOCATION</span><strong>西交利物浦大学南校区<br />学术类社团区 8 号展位</strong></div><div><span>ENTRY</span><strong>现场免费参与</strong></div></div><div className="venue-route" aria-label="百团大战展位路线"><span>SOUTH CAMPUS</span><i /> <span>ACADEMIC CLUBS</span><i /> <strong>BOOTH 08</strong></div><div className="event-actions"><a className="btn btn-dark" href={openHouse.href}>查看活动 <span>→</span></a><a className="map-link" href="/games/quick-quiz">进入快问快答 ↗︎</a><a className="map-link" href="/recruitment/academic-clubs-map.png" target="_blank" rel="noreferrer">查看地图 ↗︎</a></div></div>
           <figure className="event-map"><a href="/recruitment/academic-clubs-map.png" target="_blank" rel="noreferrer" aria-label="打开学术类社团完整地图"><Image src="/recruitment/academic-clubs-map.png" width={2560} height={1499} sizes="(max-width: 1080px) 100vw, 55vw" alt="学校学术类社团地图，InfoCo 计算机科学类编程社团位于 8 号展位" /></a><figcaption><span>ACADEMIC CLUBS MAP</span><strong>INFOCO · BOOTH 08</strong><small>点击查看学校宣传地图原图</small></figcaption></figure>
         </section>
 
@@ -62,9 +73,11 @@ export default function Home() {
 
         <section className="visual-log section-pad">
           <div className="section-heading"><div><span className="section-index">04 / ACTIVITY LOG</span><h2>课程、项目、<br /><em>现场。</em></h2></div><p>记录社课、共创夜与作品分享。</p></div>
-          <div className="log-grid"><div className="log-frame log-a"><span>WORKSHOP / 01</span><b>&lt;CODE<br />TOGETHER&gt;</b><i /></div><div className="log-frame log-b"><span>HACK NIGHT / 02</span><b>BUILD<br />AFTER<br />DARK</b><i /></div><div className="log-frame log-c"><span>SHOW & TELL / 03</span><b>SHIP IT!</b><i /></div></div>
+          <div className="log-grid">
+            {activityLogs.map(([label, title, tag, copy], index) => <div className={`log-frame log-${['a', 'b', 'c'][index]}`} key={label}><span>{label}</span><b>{title.split('\\n').map((line) => <span key={line}>{line}</span>)}</b><p><strong>{tag}</strong>{copy}</p><i /></div>)}
+          </div>
         </section>
-        <section className="closing-cta"><span className="section-index">05 / NEXT MOVE</span><h2>带上想法，<br />找到队友。</h2><div><a className="btn btn-primary" href={openHouse.href}>查看百团大战 <span>→</span></a><a className="btn btn-ghost" href="/join">加入 InfoCo <span>↗</span></a></div></section>
+        <section className="closing-cta"><span className="section-index">05 / NEXT MOVE</span><h2>带上想法，<br />找到队友。</h2><div><a className="btn btn-primary" href={openHouse.href}>查看百团大战 <span>→</span></a><a className="btn btn-ghost" href="/join">加入 InfoCo <span>↗︎</span></a></div></section>
       </main>
     </Shell>
   );

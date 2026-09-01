@@ -33,7 +33,7 @@ export function EventExplorer({ events }: { events: EventRecord[] }) {
             <div className="event-visual"><span>{event.eyebrow}</span><b>{eventGlyphs[event.type]}</b><i /></div>
             <div className="event-card-body"><span className="card-kicker">{event.status === 'upcoming' ? 'UPCOMING' : 'ARCHIVE'} · {event.type}</span><h2>{event.title}</h2><p>{event.summary}</p><dl><div><dt>DATE</dt><dd>{event.date}</dd></div><div><dt>PLACE</dt><dd>{event.place}</dd></div></dl><span className="text-link">{event.href?.startsWith('/events#') ? '日程待确认' : '查看活动 →'}</span></div>
           </a>
-        )) : <div className="empty-state"><span>NO SIGNAL</span><h2>当前分类暂无活动</h2><p>请选择其他分类。</p></div>}
+        )) : <div className="empty-state"><span>NO EVENTS</span><h2>当前分类暂无活动</h2><p>请选择其他分类。</p></div>}
       </div>
     </div>
   );
@@ -51,7 +51,7 @@ export function ShareButton({ label = '复制页面链接' }: { label?: string }
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1800);
   }
-  return <button className="share-button" onClick={copy}>{copied ? '已复制 ✓' : `${label} ↗`}</button>;
+  return <button className="share-button" onClick={copy}>{copied ? '已复制 ✓' : `${label} ↗︎`}</button>;
 }
 
 const faqJoin: Array<[string, string]> = [
